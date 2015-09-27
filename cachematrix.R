@@ -1,5 +1,5 @@
 ## The following set of two functions enable the programmer to generate a special matrix along with its inverse. 
-## To save time, if the inverse is already calculated it displays the message saying "Inver already calculated and getting cached data"
+## To save time, if the inverse is already calculated it displays the message saying "Inverse already calculated and getting cached data"
 
 ## Function "makecacheMatrix" creates a special "matrix", which is really a list containing a function to
 ## 1. set the value of the matrix
@@ -28,7 +28,7 @@ makecacheMatrix <- function(x = matrix()) {
 cacheSolve <- function(x, ...) {
         I <- x$getInv()
         if(!is.null(I)) {
-                message("Inver already calculated and getting cached data")
+                message("Inverse already calculated and getting cached data")
                 return(I)
         }
         data <- x$get()
