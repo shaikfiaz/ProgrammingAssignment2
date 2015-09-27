@@ -1,15 +1,39 @@
-## Put comments here that give an overall description of what your
-## functions do
+## The following set of two functions enable the programmer to generate a special matrix along with its inverse. 
+## To save time, if the inverse is already calculated it displays the message saying "Inver already calculated and getting cached data"
 
-## Write a short comment describing this function
+## Function "makecacheMatrix" creates a special "matrix", which is really a list containing a function to
+## 1. set the value of the matrix
+## 2. get the value of the matrix
+## 3. set the value of the inverse
+## 4. get the value of the inverse
 
-makeCacheMatrix <- function(x = matrix()) {
-
+makecacheMatrix <- function(x = matrix()) {
+        I <- NULL #For inverse
+        set <- function(y) {
+                x <<- y
+                I <<- NULL
+        }
+        get <- function() x
+        setInv <- function(solve) I <<- solve
+        getInv <- function() I
+        list(set = set, get = get,
+             setInv = setInv,
+             getInv = getInv)
 }
 
 
-## Write a short comment describing this function
+## The function "cacheSolve" calculates the inverse of the special "matrix" created with the "makecacheMatrix" function. 
+## It first checks to see if the inverse has already been calculated. If so, it gets the inverse from the cache and skips the 
+## computation. Otherwise, it calculates the mean of the data and sets the value of the mean in the cache via the setmean function.
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+        I <- x$getInv()
+        if(!is.null(I)) {
+                message("Inver already calculated and getting cached data")
+                return(I)
+        }
+        data <- x$get()
+        I <- solve(data, ...)
+        x$setInv(I)
+        I
 }
